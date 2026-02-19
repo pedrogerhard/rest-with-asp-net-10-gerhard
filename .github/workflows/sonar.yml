@@ -52,5 +52,5 @@ jobs:
         shell: pwsh
         run: |
           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"pedrogerhard_rest-with-asp-net-10-gerhard" /o:"pedrogerhard" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          dotnet build --configuration Release
+          dotnet build RestWithASPNET10Gerhard.sln --configuration Release
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
