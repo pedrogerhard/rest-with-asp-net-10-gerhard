@@ -1,0 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace RestWithASPNET10Gerhard.Model.Context;
+
+public class MSSQLContext : DbContext
+{
+    public MSSQLContext(DbContextOptions<MSSQLContext> options) : base(options) {}
+     public DbSet<Person> Persons { get; set; }
+}

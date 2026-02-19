@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  restwithaspnet10gerhard:
+    build:
+      context: ./RestWithASPNET10Gerhard
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=asp_net_10_gerhard;User=sa;Password=Admin@1234;TrustServerCertificate=True"
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-CU2-ubuntu-22.04
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Admin@1234"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:
