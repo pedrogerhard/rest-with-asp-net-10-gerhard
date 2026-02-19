@@ -19,7 +19,8 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -46,11 +47,21 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
 
       - name: Build and analyze
-        working-directory: RestWithASPNET10Gerhard
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: pwsh
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"pedrogerhard_rest-with-asp-net-10-gerhard" /o:"pedrogerhard" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          dotnet build RestWithASPNET10Gerhard.sln --configuration Release
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          $scanner = "${{ runner.temp }}\scanner\dotnet-sonarscanner"
+
+          & $scanner begin /k:"pedrogerhard_rest-with-asp-net-10-gerhard" /o:"pedrogerhard" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+          $sln = Get-ChildItem -Recurse -Filter *.sln | Select-Object -First 1
+
+          if (-not $sln) {
+            Write-Error "Nenhum arquivo .sln encontrado."
+            exit 1
+          }
+
+          dotnet build $sln.FullName --configuration Release
+
+          & $scanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
