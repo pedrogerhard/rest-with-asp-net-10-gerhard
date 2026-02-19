@@ -53,15 +53,22 @@ jobs:
         run: |
           $scanner = "${{ runner.temp }}\scanner\dotnet-sonarscanner"
 
-          & $scanner begin /k:"pedrogerhard_rest-with-asp-net-10-gerhard" /o:"pedrogerhard" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          # Inicia análise
+          & $scanner begin `
+            /k:"pedrogerhard_rest-with-asp-net-10-gerhard" `
+            /o:"pedrogerhard" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-          $sln = Get-ChildItem -Recurse -Filter *.sln | Select-Object -First 1
+          # Procura o primeiro projeto C#
+          $proj = Get-ChildItem -Recurse -Filter *.csproj | Select-Object -First 1
 
-          if (-not $sln) {
-            Write-Error "Nenhum arquivo .sln encontrado."
+          if (-not $proj) {
+            Write-Error "Nenhum arquivo .csproj encontrado."
             exit 1
           }
 
-          dotnet build $sln.FullName --configuration Release
+          # Build obrigatório entre begin e end
+          dotnet build $proj.FullName --configuration Release
 
+          # Finaliza análise
           & $scanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
