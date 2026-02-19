@@ -7,7 +7,6 @@
     <DockerLaunchAction>LaunchBrowser=false</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>restwithaspnet10gerhard</DockerServiceName>
-    <ProjectGuid>525974e5-a49d-42bd-b45b-7489d07c575c</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
