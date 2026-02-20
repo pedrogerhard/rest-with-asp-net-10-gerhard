@@ -29,5 +29,5 @@ public class Person
     [Required]
     [Column("gender", TypeName = "varchar(6)")]
     [MaxLength(6)]
-    public string Gender { get; set; } 
+    public string Gender { get; set; }
 }

@@ -1,59 +1,58 @@
 ﻿using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Model.Context;
 
-namespace RestWithASPNET10Gerhard.Repositories.Impl
+namespace RestWithASPNET10Gerhard.Repositories.Impl;
+
+public class PersonRepository : IPersonRepository
 {
-    public class PersonRepository : IPersonRepository
+    private MSSQLContext _context;
+
+    public PersonRepository(MSSQLContext context)
     {
-        private MSSQLContext _context;
+        _context = context;
+    }
 
-        public PersonRepository(MSSQLContext context)
-        {
-            _context = context;
-        }
+    public List<Person> FindAll()
+    {
 
-        public List<Person> FindAll()
-        {
+        return _context.Persons.ToList();
+    }
 
-            return [.. _context.Persons];
-        }
+    public Person Create(Person person)
+    {
+        _context.Persons.Add(person);
+        _context.SaveChanges();
 
-        public Person Create(Person person)
-        {
-            _context.Persons.Add(person);
-            _context.SaveChanges();
+        return person;
+    }
 
-            return person;
-        }
+    public void Delete(long id)
+    {
+        var existingPerson = _context.Persons.Find(id);
 
-        public void Delete(long id)
-        {
-            var existingPerson = _context.Persons.Find(id);
+        if (existingPerson == null)
+            return;
 
-            if (existingPerson == null)
-                return;
+        _context.Persons.Remove(existingPerson);
+        _context.SaveChanges();
+    }
 
-            _context.Persons.Remove(existingPerson);
-            _context.SaveChanges();
-        }
+    public Person FindById(long id)
+    {
 
-        public Person FindById(long id)
-        {
+        return _context.Persons.Find(id);
+    }
 
-            return _context.Persons.Find(id);
-        }
+    public Person Update(Person person)
+    {
+        var existingPerson = _context.Persons.Find(person.Id);
 
-        public Person Update(Person person)
-        {
-            var existingPerson = _context.Persons.Find(person.Id);
+        if (existingPerson == null)
+            return null;
 
-            if (existingPerson == null)
-                return null;
+        _context.Entry(existingPerson).CurrentValues.SetValues(person);
+        _context.SaveChanges();
 
-            _context.Entry(existingPerson).CurrentValues.SetValues(person);
-            _context.SaveChanges();
-
-            return person;
-        }
+        return person;
     }
 }

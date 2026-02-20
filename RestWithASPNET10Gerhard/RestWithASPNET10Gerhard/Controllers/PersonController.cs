@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Services;
 
@@ -77,7 +75,7 @@ public class PersonController : ControllerBase
 
             return NotFound();
         }
-            _logger.LogDebug("Person updated successfully: {firstName}", createdPerson.FirstName);
+        _logger.LogDebug("Person updated successfully: {firstName}", createdPerson.FirstName);
 
         return Ok(person);
     }
