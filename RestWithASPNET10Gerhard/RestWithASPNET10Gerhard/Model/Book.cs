@@ -1,16 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RestWithASPNET10Gerhard.Model.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestWithASPNET10Gerhard.Model;
 
 [Table("books")]
-public class Book
+public class Book : BaseEntity
 {
-    [Key]
-    [Column("id")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public long Id { get; set; }
-
     [Required]
     [Column("title", TypeName = "varchar(200)")]
     [MaxLength(200)]

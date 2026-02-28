@@ -5,9 +5,9 @@ namespace RestWithASPNET10Gerhard.Services.Impl;
 
 public class BookServiceImpl : IBookService
 {
-    private IBookRepository _repository;
+    private Irepository<Book> _repository;
 
-    public BookServiceImpl(IBookRepository repository)
+    public BookServiceImpl(Irepository<Book> repository)
     {
         _repository = repository;
     }

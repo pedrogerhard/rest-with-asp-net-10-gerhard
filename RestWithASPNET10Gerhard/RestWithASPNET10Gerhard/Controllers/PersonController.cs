@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestWithASPNET10Gerhard.Data.DTO;
 using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Services;
 
@@ -46,7 +47,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] Person person)
+    public IActionResult Post([FromBody] PersonDTO person)
     {
         _logger.LogInformation("Creating a new person: {firstName}", person.FirstName);
 
@@ -63,7 +64,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] Person person)
+    public IActionResult Put([FromBody] PersonDTO person)
     {
         _logger.LogInformation("Updating person with ID {id}", person.Id);
 

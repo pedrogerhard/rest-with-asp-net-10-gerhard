@@ -4,6 +4,7 @@ using RestWithASPNET10Gerhard.Repositories.Impl;
 using RestWithASPNET10Gerhard.Services;
 using RestWithASPNET10Gerhard.Services.Impl;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogLogging();
@@ -14,9 +15,8 @@ builder.Services.AddEvolveConfiguration(builder.Configuration, builder.Environme
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPersonServices, PersonServicesImpl>();
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookServiceImpl>();
+builder.Services.AddScoped(typeof(Irepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 

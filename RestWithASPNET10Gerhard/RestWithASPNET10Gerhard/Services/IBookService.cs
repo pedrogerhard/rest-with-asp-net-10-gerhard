@@ -1,16 +1,17 @@
-﻿using RestWithASPNET10Gerhard.Model;
+﻿using RestWithASPNET10Gerhard.Data.DTO;
+using RestWithASPNET10Gerhard.Model;
 
 namespace RestWithASPNET10Gerhard.Services;
 
 public interface IBookService
 {
-    Book Create(Book book);
+    BookDTO Create(BookDTO book);
 
-    Book FindById(long id);
+    BookDTO FindById(long id);
 
-    List<Book> FindAll();
+    List<BookDTO> FindAll();
 
-    Book Update(Book book);
+    BookDTO Update(BookDTO book);
 
     void Delete(long id);
 }
