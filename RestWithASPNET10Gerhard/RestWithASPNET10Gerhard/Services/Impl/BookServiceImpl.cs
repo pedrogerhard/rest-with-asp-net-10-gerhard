@@ -3,6 +3,7 @@ using RestWithASPNET10Gerhard.Repositories;
 
 namespace RestWithASPNET10Gerhard.Services.Impl;
 
+//teste
 public class BookServiceImpl : IBookService
 {
     private Irepository<Book> _repository;
