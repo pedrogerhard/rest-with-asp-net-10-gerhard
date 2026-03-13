@@ -1,4 +1,6 @@
-﻿using RestWithASPNET10Gerhard.Model;
+﻿using Mapster;
+using RestWithASPNET10Gerhard.Data.DTO.V1;
+using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Repositories;
 
 namespace RestWithASPNET10Gerhard.Services.Impl;
@@ -13,9 +15,13 @@ public class BookServiceImpl : IBookService
         _repository = repository;
     }
 
-    public Book Create(Book book)
+    public BookDTO Create(BookDTO book)
     {
-       return _repository.Create(book);
+        var entity = book.Adapt<Book>();
+
+        entity = _repository.Create(entity);
+
+        return entity.Adapt<BookDTO>();
     }
 
     public void Delete(long id)
@@ -23,18 +29,22 @@ public class BookServiceImpl : IBookService
          _repository.Delete(id);
     }
 
-    public List<Book> FindAll()
+    public List<BookDTO> FindAll()
     {
-        return _repository.FindAll();
+        return _repository.FindAll().Adapt<List<BookDTO>>();
     }
 
-    public Book FindById(long id)
+    public BookDTO FindById(long id)
     {
-        return _repository.FindById(id);
+        return _repository.FindById(id).Adapt<BookDTO>();
     }
 
-    public Book Update(Book book)
+    public BookDTO Update(BookDTO book)
     {
-        return _repository.Update(book);
+        var entity = book.Adapt<Book>();
+
+        entity = _repository.Update(entity);
+
+        return entity.Adapt<BookDTO>();
     }
 }

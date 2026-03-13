@@ -1,4 +1,4 @@
-﻿using RestWithASPNET10Gerhard.Data.DTO;
+﻿using RestWithASPNET10Gerhard.Data.DTO.V1;
 using RestWithASPNET10Gerhard.Model;
 
 namespace RestWithASPNET10Gerhard.Services;

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestWithASPNET10Gerhard.Model;
+using RestWithASPNET10Gerhard.Data.DTO.V1;
 using RestWithASPNET10Gerhard.Services;
 
-namespace RestWithASPNET10Gerhard.Controllers;
+namespace RestWithASPNET10Gerhard.Controllers.V1;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/V1")]
 public class BookController : ControllerBase
 {
     private IBookService _bookService;
@@ -46,7 +46,8 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] Book book)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "ASP0019:Suggest using IHeaderDictionary.Append or the indexer", Justification = "<Pendente>")]
+    public IActionResult Post([FromBody] BookDTO book)
     {
         _logger.LogInformation("Creating a new book: {title}", book.Title);
 
@@ -59,11 +60,14 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
+        Response.Headers.Add("X-API-Deprecated", "True");
+        Response.Headers.Add("X-API-Deprecationn-Date", "2026-12-31");
+
         return Ok(book);
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] Book book)
+    public IActionResult Put([FromBody] BookDTO book)
     {
         _logger.LogInformation("Updating book with id {id}", book.Id);
 

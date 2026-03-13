@@ -28,7 +28,8 @@ namespace RestWithASPNET10Gerhard.Repositories.Impl
         {
             var existingItem = _dataset.Find(id);
 
-            if (existingItem != null)
+            // if the item does not exist, nothing to delete
+            if (existingItem == null)
                 return;
 
             _dataset.Remove(existingItem);
@@ -54,7 +55,8 @@ namespace RestWithASPNET10Gerhard.Repositories.Impl
         {
             var existingItem = _dataset.Find(item.Id);
 
-            if (existingItem != null)
+            // if the item doesn't exist, cannot update
+            if (existingItem == null)
                 return null;
 
             _context.Entry(existingItem).CurrentValues.SetValues(item);

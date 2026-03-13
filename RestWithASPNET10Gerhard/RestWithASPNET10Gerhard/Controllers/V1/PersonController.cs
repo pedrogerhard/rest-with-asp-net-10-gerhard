@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestWithASPNET10Gerhard.Data.DTO;
+using RestWithASPNET10Gerhard.Data.DTO.V1;
 using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Services;
 
-namespace RestWithASPNET10Gerhard.Controllers;
+namespace RestWithASPNET10Gerhard.Controllers.V1;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/v1")]
 public class PersonController : ControllerBase
 {
     private IPersonServices _personService;
@@ -69,16 +69,13 @@ public class PersonController : ControllerBase
         _logger.LogInformation("Updating person with ID {id}", person.Id);
 
         var createdPerson = _personService.Update(person);
-
         if (createdPerson == null)
         {
             _logger.LogError("Failed to update person with ID {id}", person.Id);
-
             return NotFound();
         }
         _logger.LogDebug("Person updated successfully: {firstName}", createdPerson.FirstName);
-
-        return Ok(person);
+        return Ok(createdPerson);
     }
 
     [HttpDelete("{id}")]

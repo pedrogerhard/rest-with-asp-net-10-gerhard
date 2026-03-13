@@ -1,4 +1,4 @@
-﻿namespace RestWithASPNET10Gerhard.Data.DTO;
+﻿namespace RestWithASPNET10Gerhard.Data.DTO.V1;
 
 public class PersonDTO
 {

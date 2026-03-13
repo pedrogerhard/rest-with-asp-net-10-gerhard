@@ -1,5 +1,5 @@
 ﻿using RestWithASPNET10Gerhard.Data.Converter.Contract;
-using RestWithASPNET10Gerhard.Data.DTO;
+using RestWithASPNET10Gerhard.Data.DTO.V2;
 using RestWithASPNET10Gerhard.Model;
 
 namespace RestWithASPNET10Gerhard.Data.Converter.Impl;
@@ -17,6 +17,7 @@ public class PersonConverter : IParser<PersonDTO, Person>, IParser<Person, Perso
             LastName = origin.LastName,
             Address = origin.Address,
             Gender = origin.Gender,
+            //BirthDay = origin.BirthDay,
         };
     }
 
@@ -31,6 +32,8 @@ public class PersonConverter : IParser<PersonDTO, Person>, IParser<Person, Perso
             LastName = origin.LastName,
             Address = origin.Address,
             Gender = origin.Gender,
+            BirthDay = DateTime.Now,
+            //BirthDay = origin.BirthDay ?? DateTime.Now,
         };
     }
 

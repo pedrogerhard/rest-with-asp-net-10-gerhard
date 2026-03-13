@@ -1,5 +1,5 @@
-﻿using RestWithASPNET10Gerhard.Data.Converter.Impl;
-using RestWithASPNET10Gerhard.Data.DTO;
+﻿using Mapster;
+using RestWithASPNET10Gerhard.Data.DTO.V1;
 using RestWithASPNET10Gerhard.Model;
 using RestWithASPNET10Gerhard.Repositories;
 
@@ -8,25 +8,24 @@ namespace RestWithASPNET10Gerhard.Services.Impl;
 public class PersonServicesImpl : IPersonServices
 {
     private Irepository<Person> _repository;
-    private readonly PersonConverter _converter;
 
     public PersonServicesImpl(Irepository<Person> repository)
     {
         _repository = repository;
-        _converter = new PersonConverter();
     }
 
     public List<PersonDTO> FindAll()
     {
-        return _converter.ParseList(_repository.FindAll());
+        return _repository.FindAll().Adapt<List<PersonDTO>>();
     }
 
     public PersonDTO Create(PersonDTO person)
     {
-        var entity = _converter.Parse(person);
+        var entity = person.Adapt<Person>();
+
         entity = _repository.Create(entity);
 
-        return _converter.Parse(entity);
+        return entity.Adapt<PersonDTO>();
     }
 
     public void Delete(long id)
@@ -37,14 +36,15 @@ public class PersonServicesImpl : IPersonServices
     public PersonDTO FindById(long id)
     {
 
-        return _converter.Parse(_repository.FindById(id));
+        return _repository.FindById(id).Adapt<PersonDTO>();
     }
 
     public PersonDTO Update(PersonDTO person)
     {
-        var entity = _converter.Parse(person);
+        var entity = person.Adapt<Person>();
+
         entity = _repository.Update(entity);
 
-        return _converter.Parse(entity);
+        return entity.Adapt<PersonDTO>();
     }
 }
